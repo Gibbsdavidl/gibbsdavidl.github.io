@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on iAtlas</title>
-    <link>/CRI-iAtlas.github.io/tags/r/</link>
+    <link>/tags/r/</link>
     <description>Recent content in R on iAtlas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Apr 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/CRI-iAtlas.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Portal launched in beta</title>
-      <link>/CRI-iAtlas.github.io/news/iatlas_news_1/</link>
+      <link>/news/iatlas_news_1/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/news/iatlas_news_1/</guid>
+      <guid>/news/iatlas_news_1/</guid>
       <description>Introduction to iAtlas The iAtlas portal serves as an interactive companion to the recently-to-be published paper &amp;ldquo;The Immune Landscape of Cancer&amp;rdquo;.
 Getting there Currently, the portal is built using R/Shiny, which gives us a way to make quickly interate on prototypes and integrate feedback from users. Eventually, we will be moving towards a more robust javascript based solution.
 Follow the &amp;lsquo;Analyze&amp;rsquo; link above to get to the shiny app.</description>

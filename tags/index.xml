@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on iAtlas</title>
-    <link>/CRI-iAtlas.github.io/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on iAtlas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Apr 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/CRI-iAtlas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Cri</title>
-      <link>/CRI-iAtlas.github.io/tags/cri/</link>
+      <link>/tags/cri/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/tags/cri/</guid>
+      <guid>/tags/cri/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Development</title>
-      <link>/CRI-iAtlas.github.io/tags/development/</link>
+      <link>/tags/development/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/tags/development/</guid>
+      <guid>/tags/development/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Isb</title>
-      <link>/CRI-iAtlas.github.io/tags/isb/</link>
+      <link>/tags/isb/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/tags/isb/</guid>
+      <guid>/tags/isb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/CRI-iAtlas.github.io/tags/r/</link>
+      <link>/tags/r/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/tags/r/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Shiny</title>
-      <link>/CRI-iAtlas.github.io/tags/shiny/</link>
+      <link>/tags/shiny/</link>
       <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/CRI-iAtlas.github.io/tags/shiny/</guid>
+      <guid>/tags/shiny/</guid>
       <description></description>
     </item>
     
