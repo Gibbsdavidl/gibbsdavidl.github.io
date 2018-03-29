@@ -6,10 +6,21 @@
     <description>Recent content on iAtlas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/CRI-iAtlas.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Portal launched in beta</title>
+      <link>/CRI-iAtlas.github.io/news/iatlas_news_1/</link>
+      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/CRI-iAtlas.github.io/news/iatlas_news_1/</guid>
+      <description>Introduction to iAtlas The iAtlas portal serves as an interactive companion to the recently-to-be published paper &amp;ldquo;The Immune Landscape of Cancer&amp;rdquo;.
+Getting there Currently, the portal is built using R/Shiny, which gives us a way to make quickly interate on prototypes and integrate feedback from users. Eventually, we will be moving towards a more robust javascript based solution.
+Follow the &amp;lsquo;Analyze&amp;rsquo; link above to get to the shiny app.</description>
+    </item>
     
     <item>
       <title>About the iAtlas project</title>
@@ -18,17 +29,7 @@
       
       <guid>/CRI-iAtlas.github.io/about/</guid>
       <description>The iAtlas portal serves as an interactive companion to the recently-to-be published paper &amp;ldquo;The Immune Landscape of Cancer&amp;rdquo;.
-Basic Use Currently, the portal is built using R/Shiny, which gives us a way to make quick prototypes and integrate feedback from users. Eventually, we will be moving towards a more robust javascript based solution.</description>
-    </item>
-    
-    <item>
-      <title>Portal launched in beta</title>
-      <link>/CRI-iAtlas.github.io/news/iatlas_news_1/</link>
-      <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/CRI-iAtlas.github.io/news/iatlas_news_1/</guid>
-      <description>Introduction to iAtlas The iAtlas portal serves as an interactive companion to the recently-to-be published paper &amp;ldquo;The Immune Landscape of Cancer&amp;rdquo;.
-Basic Use Currently, the portal is built using R/Shiny, which gives us a way to make quick prototypes and integrate feedback from users. Eventually, we will be moving towards a more robust javascript based solution.</description>
+About the Cancer Research Institute The Cancer Research Institute (CRI), established in 1953, is the world’s leading nonprofit organization dedicated exclusively to transforming cancer patient care by advancing scientific efforts to develop new and effective immune system-based strategies to prevent, diagnose, treat, and eventually cure all cancers. Guided by a world-renowned Scientific Advisory Council that includes three Nobel laureates and 26 members of the National Academy of Sciences, CRI has invested $336 million in support of research conducted by immunologists and tumor immunologists at the world’s leading medical centers and universities, and has contributed to many of the key scientific advances that demonstrate the potential for immunotherapy to change the face of cancer treatment.</description>
     </item>
     
   </channel>
