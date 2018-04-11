@@ -1,0 +1,49 @@
+/*
+// This work is licensed under the Creative Commons Attribution 4.0 International License.
+// To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+// or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+// David L Gibbs
+// gibbsdavidl at gmail dot com
+*/
+
+canvas {
+    background: #000000;
+    display: block;
+    margin: 0 auto;
+}
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: white;
+    background-color: black;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 10px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
