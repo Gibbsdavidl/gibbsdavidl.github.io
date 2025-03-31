@@ -47,3 +47,10 @@ article {
     padding: 1em;
     overflow: hidden;
 }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars */
+}
+

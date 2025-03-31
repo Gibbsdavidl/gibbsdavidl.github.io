@@ -1,7 +1,7 @@
 
 
     var canvas = document.getElementById("myCanvas");
-    var ctx=canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
 
     var numBugs = 64;
     var bugs = [];
@@ -9,6 +9,16 @@
     var bugSize = 8;
     var dx = 1; // how much they move per draw?
     var dy = 1;
+
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Optional: Clear or fill background
+      //ctx.fillStyle = '#f0f0f0';
+      //ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
 
 
     function bugNumControl () {
@@ -52,7 +62,7 @@
             if (bugs[i].x < 1) {bugs[i].x = canvas.width;}
             if (bugs[i].x > canvas.width) {bugs[i].x = 1;}
             if (bugs[i].y < 1) {bugs[i].y = canvas.height;}
-            if (bugs[i].y > canvas.width) {bugs[i].y = 1;}
+            if (bugs[i].y > canvas.height) {bugs[i].y = 1;}
 
         }
     }
@@ -105,12 +115,16 @@
     }
 
 
-    function start() {
-      initBugs();
-      draw();
-    }
+function start() {
+  resizeCanvas();      // Resize FIRST
+  initBugs();          // THEN create bugs with valid dimensions
+  window.addEventListener('resize', resizeCanvas);
+  draw();
+}
+
 
 (function(){
     //requestAnimationFrame(draw);
-    window.onload = function() { start(); };
+    window.onload = function() { 
+    start(); };
 })();
