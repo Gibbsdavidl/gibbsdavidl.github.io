@@ -1,130 +1,115 @@
 
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
 
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+  var numBugs = 128;
+  var bugs = [];
+  var bugLength = 3;
+  var bugSize = 8;
 
-    var numBugs = 64;
-    var bugs = [];
-    var bugLength = 3;
-    var bugSize = 8;
-    var dx = 1; // how much they move per draw?
-    var dy = 1;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
 
+function initBugs() {
+  bugs = [];
+  for (let i = 0; i < numBugs; i++) {
+    let x = 10 + 100 * (Math.random() - 0.5);
+    let y = 10 + 100 * (Math.random() - 0.5);
+    let z = 10 + 100 * (Math.random() - 0.5);
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    let c1 = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    let c2 = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    let c3 = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    let bugcol = [c1, c2, c3]; 
 
-      // Optional: Clear or fill background
-      //ctx.fillStyle = '#f0f0f0';
-      //ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let trail = [];
+    for (let j = 0; j < bugLength; j++) {
+      trail.push({ x, y, z });
     }
 
-
-    function bugNumControl () {
-        var value = document.getElementById('rg').value;
-        numBugs = +value;   // + will convert the string to number
-        initBugs();
-      }
-
-    function initBugs() {
-        // adds to the bug list
-        bugs=[];
-        for (let x=0; x<numBugs; x++){
-            // make a bug!
-            let dx = 2 * (Math.random() - 0.5);
-            let dy = 2 * (Math.random() - 0.5);
-            let norm = Math.sqrt(dx * dx + dy * dy) || 1; // avoid divide-by-zero
-            var xi = canvas.width * Math.random(); // where the bug is
-            var yi = canvas.height * Math.random();
-            var col1 = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var col2 = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var col3 = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var bugcol = [col1, col2, col3];
-            var bug = {'dx':dx/norm, 'dy':dy/norm, 'x':xi, 'y':yi, 'bugcol':bugcol};
-            bugs.push(bug);
-        }
-    }
-
-    function drawBugs() {
-        for (let i = 0; i < bugs.length; ++i) {
-            let r = bugs[i]
-            let xc = r.bugcol;
-            for (let j=0; j<bugLength; j++) {
-                ctx.beginPath();
-                ctx.rect(r.x+ (-1*r.dx*j*bugSize), r.y+ (-1*r.dy*j*bugSize), bugSize, bugSize);
-                ctx.fillStyle = xc[j];
-                ctx.fill();
-                ctx.closePath();
-            }
-            bugs[i].x += bugs[i].dx;
-            bugs[i].y += bugs[i].dy;
-            if (bugs[i].x < -bugSize) {bugs[i].x = canvas.width + bugSize;}
-            if (bugs[i].x > canvas.width) {bugs[i].x = 1;}
-            if (bugs[i].y < -bugSize) {bugs[i].y = canvas.height + bugSize;}
-            if (bugs[i].y > canvas.height) {bugs[i].y = 1;}
-
-        }
-    }
-
-
-    function dist(x1,y1,x2,y2) {
-      var d = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
-      return(d);
-    }
-
-
-    function bugsAction() {
-      // each bug can see if there's a bug near by
-      for(let i=0; i<bugs.length; ++i) {
-          thisx = bugs[i].x;
-          thisy = bugs[i].y;
-          if (Math.random() < 0.01) {
-            // go crazy.
-            let dx = 2 * (Math.random() - 0.5);
-            let dy = 2 * (Math.random() - 0.5);
-            let norm = Math.sqrt(dx * dx + dy * dy) || 1;
-            bugs[i].dx = dx / norm;
-            bugs[i].dy = dy / norm;
-          } else {
-            // if there's a bug in this region, then course correct to follow
-            for(let j=0; j<bugs.length; ++j) {
-              if (i != j) {
-                thatx = bugs[j].x;
-                thaty = bugs[j].y;
-                if (dist(thisx,thisy,thatx,thaty) < 10) {
-                  // make a course correction
-                  bugsdx = bugs[i].dx + 0.2*bugs[j].dx;
-                  bugsdy = bugs[i].dy + 0.2*bugs[j].dy;
-                  norm   = Math.sqrt(Math.pow(bugsdx,2) + Math.pow(bugsdy,2));
-                  bugs[i].dx = bugsdx/norm;
-                  bugs[i].dy = bugsdy/norm;
-                }
-              }
-            }
-          }
-        }
-    }
-
-
-    function draw() {        // -- //
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBugs();
-        bugsAction();
-        requestAnimationFrame(draw);
-    }
-
-
-function start() {
-  resizeCanvas();      // Resize FIRST
-  initBugs();          // THEN create bugs with valid dimensions
-  window.addEventListener('resize', resizeCanvas);
-  draw();
+    bugs.push({
+      x: x, y: y, z: z,
+      trail: trail,
+      bugcol: bugcol,
+      tick: 0
+    });
+  }
 }
 
 
-(function(){
-    //requestAnimationFrame(draw);
-    window.onload = function() { 
-    start(); };
-})();
+function updateLorenz(bug, dt) {
+  const sigma = 10;
+  const rho = 28;
+  const beta = 8 / 3;
+
+  let dx = sigma * (bug.y - bug.x);
+  let dy = bug.x * (rho - bug.z) - bug.y;
+  let dz = bug.x * bug.y - beta * bug.z;
+
+  const nudge = 0.1;
+  dx += (Math.random() - 0.5) * nudge;
+  dy += (Math.random() - 0.5) * nudge;
+  dz += (Math.random() - 0.5) * nudge;
+
+  bug.x += dx * dt;
+  bug.y += dy * dt;
+  bug.z += dz * dt;
+
+  // Always add to trail every frame (but dt is slow)
+  bug.trail.unshift({ x: bug.x, y: bug.y, z: bug.z });
+  if (bug.trail.length > bugLength) {
+    bug.trail.length = bugLength;
+  }
+}
+
+
+function drawBugs() {
+  const scale = 18; // adjust for how large you want the display
+  for (let i = 0; i < bugs.length; i++) {
+    const b = bugs[i];
+    const colors = b.bugcol;
+
+    for (let j = 0; j < b.trail.length; j++) {
+      const t = b.trail[j];
+      const px = canvas.width / 2 + t.x * scale;
+      const py = canvas.height / 2 - t.z * scale+240;
+
+      // Only draw if visible
+      if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
+        ctx.beginPath();
+        ctx.rect(px, py, bugSize, bugSize);
+        ctx.fillStyle = colors[j] || colors[colors.length - 1];
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+  }
+}
+
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < bugs.length; i++) {
+      updateLorenz(bugs[i], 0.001 + Math.random() * 0.001);
+    }
+
+    drawBugs();
+    requestAnimationFrame(draw);
+  }
+
+  function start() {
+    resizeCanvas();
+    initBugs();
+    window.addEventListener('resize', resizeCanvas);
+    draw();
+  }
+
+  (function () {
+    window.onload = function () {
+      start();
+    };
+  })();
+
