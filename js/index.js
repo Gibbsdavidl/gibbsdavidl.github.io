@@ -30,11 +30,11 @@
     function initBugs() {
         // adds to the bug list
         bugs=[];
-        for (x=0; x<numBugs; x++){
+        for (let x=0; x<numBugs; x++){
             // make a bug!
-            var dx = 2*(Math.random() - 0.5); // direction of travel
-            var dy = 2*(Math.random() - 0.5);
-            var norm = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
+            let dx = 2 * (Math.random() - 0.5);
+            let dy = 2 * (Math.random() - 0.5);
+            let norm = Math.sqrt(dx * dx + dy * dy) || 1; // avoid divide-by-zero
             var xi = canvas.width * Math.random(); // where the bug is
             var yi = canvas.height * Math.random();
             var col1 = '#'+Math.floor(Math.random()*16777215).toString(16);
@@ -47,10 +47,10 @@
     }
 
     function drawBugs() {
-        for(i=0; i<bugs.length; ++i) {
-            r = bugs[i]
-            xc = r.bugcol;
-            for (j=0; j<bugLength; j++) {
+        for (let i = 0; i < bugs.length; ++i) {
+            let r = bugs[i]
+            let xc = r.bugcol;
+            for (let j=0; j<bugLength; j++) {
                 ctx.beginPath();
                 ctx.rect(r.x+ (-1*r.dx*j*bugSize), r.y+ (-1*r.dy*j*bugSize), bugSize, bugSize);
                 ctx.fillStyle = xc[j];
@@ -59,9 +59,9 @@
             }
             bugs[i].x += bugs[i].dx;
             bugs[i].y += bugs[i].dy;
-            if (bugs[i].x < 1) {bugs[i].x = canvas.width;}
+            if (bugs[i].x < -bugSize) {bugs[i].x = canvas.width + bugSize;}
             if (bugs[i].x > canvas.width) {bugs[i].x = 1;}
-            if (bugs[i].y < 1) {bugs[i].y = canvas.height;}
+            if (bugs[i].y < -bugSize) {bugs[i].y = canvas.height + bugSize;}
             if (bugs[i].y > canvas.height) {bugs[i].y = 1;}
 
         }
@@ -76,19 +76,19 @@
 
     function bugsAction() {
       // each bug can see if there's a bug near by
-      for(i=0; i<bugs.length; ++i) {
+      for(let i=0; i<bugs.length; ++i) {
           thisx = bugs[i].x;
           thisy = bugs[i].y;
           if (Math.random() < 0.01) {
             // go crazy.
-            var bugsdx = thisx + 2*(Math.random() - 0.5); // direction of travel
-            var bugsdy = thisy + 2*(Math.random() - 0.5);
-            var norm = Math.sqrt(Math.pow(bugsdx,2) + Math.pow(bugsdy,2));
-            bugs[i].dx = bugsdx/norm;
-            bugs[i].dy = bugsdy/norm;
+            let dx = 2 * (Math.random() - 0.5);
+            let dy = 2 * (Math.random() - 0.5);
+            let norm = Math.sqrt(dx * dx + dy * dy) || 1;
+            bugs[i].dx = dx / norm;
+            bugs[i].dy = dy / norm;
           } else {
             // if there's a bug in this region, then course correct to follow
-            for(j=0; j<bugs.length; ++j) {
+            for(let j=0; j<bugs.length; ++j) {
               if (i != j) {
                 thatx = bugs[j].x;
                 thaty = bugs[j].y;
