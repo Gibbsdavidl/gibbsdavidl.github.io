@@ -90,7 +90,9 @@ function drawBugs() {
 
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Low alpha = slower fade
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < bugs.length; i++) {
       updateLorenz(bugs[i], 0.001 + Math.random() * 0.001);
