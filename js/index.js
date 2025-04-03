@@ -64,6 +64,13 @@ function updateLorenz(bug, dt) {
   }
 }
 
+function hexToRgba(hex, alpha) {
+  const bigint = parseInt(hex.slice(1), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 function drawBugs() {
   const scale = 18; // adjust for how large you want the display
@@ -80,7 +87,8 @@ function drawBugs() {
       if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
         ctx.beginPath();
         ctx.rect(px, py, bugSize, bugSize);
-        ctx.fillStyle = colors[j] || colors[colors.length - 1];
+        //ctx.fillStyle = colors[j] || colors[colors.length - 1];
+        ctx.fillStyle = hexToRgba(colors[j] || colors[colors.length - 1], 0.5); // 0.5 alpha
         ctx.fill();
         ctx.closePath();
       }
