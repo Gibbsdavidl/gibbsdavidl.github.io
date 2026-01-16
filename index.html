@@ -209,6 +209,71 @@
             font-style: italic;
         }
 
+        /* --- Software Projects --- */
+        .project {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s;
+        }
+
+        .project:hover {
+            border-color: var(--accent-color);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-title {
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-title:hover {
+            color: var(--accent-color);
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-description {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
         /* --- Footer --- */
         footer {
             text-align: center;
@@ -243,10 +308,10 @@
             <div class="subtitle">Data Scientist // Systems Biologist</div>
             
             <div class="social-links">
-                <a href="/cdn-cgi/l/mailto:gibbsdavidl@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="mailto:gibbsdavidl@gmail.com"><i class="fas fa-envelope"></i> Email</a>
                 <a href="https://github.com/gibbsdavidl" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
-                <a href="Gibbs_Resume_2026.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</a>
+                <a href="Gibbs_Resume_2026.pdf" target="_blank"><i class="fas fa-file-pdf"></i> CV</a>
                 <a href="https://thorsson-shmulevich.isbscience.org/" target="_blank"><i class="fas fa-flask"></i> Thorsson-Shmulevich Lab</a>
             </div>
         </header>
@@ -275,6 +340,7 @@
             </div>
         </section>
 
+
         <section id="experience">
             <h2>Experience</h2>
             
@@ -296,6 +362,7 @@
             </div>
 
         </section>
+
 
         <section id="publications">
             <h2>Select Publications</h2>
@@ -334,6 +401,64 @@
                 h-index = 19 | 
                 <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank" style="color: var(--accent-color);">Full publication list on Google Scholar</a>
             </p>
+        </section>
+
+
+        <section id="software">
+            <h2>Selected Software</h2>
+            
+            <div class="project">
+                <div class="project-header">
+                    <a href="https://github.com/Gibbsdavidl/CatterPlots" target="_blank" class="project-title">
+                        <i class="fab fa-github"></i> CatterPlots
+                    </a>
+                    <span class="project-tag">Fun / R</span>
+                </div>
+                <p class="project-description">
+                    Did you ever wish you could make scatter plots with cat shaped points? Now you can! An R package 
+                    for creating whimsical data visualizations using cat-shaped plotting symbols, complete with rainbow 
+                    cats and customizable feline scatter plots. Features over 11 types of cats for your plotting pleasure.
+                </p>
+                <a href="https://github.com/Gibbsdavidl/CatterPlots" target="_blank" class="project-link">
+                    View on GitHub <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <a href="https://github.com/IlyaLab/gssnng" target="_blank" class="project-title">
+                        <i class="fab fa-github"></i> gssnng
+                    </a>
+                    <span class="project-tag">Bioinformatics / Python</span>
+                </div>
+                <p class="project-description">
+                    Gene Set Scoring on the Nearest Neighbor Graph for single-cell RNA-seq analysis. Part of the scverse 
+                    ecosystem (scanpy), this tool performs data smoothing using nearest neighbor graphs to create mini-pseudobulk 
+                    expression profiles for robust gene set scoring in single-cell data.
+                </p>
+                <a href="https://gssnng.readthedocs.io/en/latest/" target="_blank" class="project-link" style="margin-right: 1rem;">
+                    Documentation <i class="fas fa-book"></i>
+                </a>
+                <a href="https://github.com/IlyaLab/gssnng" target="_blank" class="project-link">
+                    View on GitHub <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <a href="https://github.com/IlyaLab/tbccsi" target="_blank" class="project-title">
+                        <i class="fab fa-github"></i> tbccsi
+                    </a>
+                    <span class="project-tag">AI / Prediction</span>
+                </div>
+                <p class="project-description">
+                    AI-powered prediction models for cell type classification in pathology H&Es. 
+                    Leverages AI vision models to identify patterns associated with clinical outcomes.
+                </p>
+                <a href="https://github.com/IlyaLab/tbccsi" target="_blank" class="project-link">
+                    View on GitHub <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
         </section>
 
 
