@@ -1,49 +1,463 @@
-<!--
-// This work is licensed under the Creative Commons Attribution 4.0 International License.
-// To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
-// or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-
-// David L Gibbs
-// gibbsdavidl at gmail dot com
-
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>~bioastrix~</title>
-  <meta name="description" content="David L Gibbs, personal site">
-  <meta name="author" content="David L Gibbs">
-  <link rel="stylesheet" type="text/css" href="http://bioastrix.com/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David L. Gibbs | Data Scientist & Systems Biologist</title>
+    <meta name="description" content="Personal portfolio of David L. Gibbs, Data Scientist and Systems Biologist.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --secondary-text: #8b949e;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- 3D Background Container --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.6; /* Slight fade so text pops */
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            margin-top: 15vh;
+            margin-bottom: 4rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Links Bar --- */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Sections --- */
+        section {
+            margin-bottom: 4rem;
+            background: rgba(22, 27, 34, 0.7); /* Glassmorphism effect */
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        /* --- Skills Grid --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--bg-color);
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- Experience --- */
+        .job {
+            margin-bottom: 2rem;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .job-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .job-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+        }
+
+        .job-company {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .job-responsibilities {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.75rem;
+        }
+
+        .job-responsibilities li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .job-responsibilities li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* --- Publications --- */
+        .publication {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+
+        .pub-authors {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .pub-details {
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            padding-bottom: 2rem;
+        }
+
+        footer a { color: var(--secondary-text); }
+
+        /* --- Animation --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .job-header { flex-direction: column; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
 
-    <header>
-      David L Gibbs :: dgibbs--at--systemsbiology--dot--org or gibbsdavidl--at--gmail.
-    </header>
+    <div id="canvas-container"></div>
 
-    <nav>
-      <ul>
-        <li><a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1">Google Scholar</a></li>
-        <li><a href="https://www.ncbi.nlm.nih.gov/sites/myncbi/1F1o6ofvbaykz/bibliography/40154246/public/?sort=date&direction=ascending">PubMed Bib</a></li>
-        <li><a href="http://www.bioastrix.com/Gibbs_CV_2019.pdf">CV</a></li>
-        <li><a href="https://shmulevich.systemsbiology.org/">Shmulevich Lab</a></li>
-        <li><a href="https://github.com/gibbsdavidl">Github</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+        
+        <header>
+            <h1>David L. Gibbs</h1>
+            <div class="subtitle">Data Scientist // Systems Biologist</div>
+            
+            <div class="social-links">
+                <a href="/cdn-cgi/l/email-protection#b1d6d8d3d3c2d5d0c7d8d5ddf1d6dcd0d8dd9fd2dedc"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://github.com/gibbsdavidl" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="https://gibbsdavidl.github.io/Gibbs_Resume_2026.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</a>
+                <a href="https://thorsson-shmulevich.isbscience.org/" target="_blank"><i class="fas fa-flask"></i> Thorsson-Shmulevich Lab</a>
+            </div>
+        </header>
 
-<article>
-  <canvas id="myCanvas"></canvas>
-  <script src="js/index.js"></script>
-</article>
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                I am a computational scientist specializing in systems biology and data analysis. 
+                My work focuses on interpreting complex biological data to understand disease mechanisms 
+                and improve healthcare outcomes. I am passionate about reproducibility, open science, 
+                and building tools that bridge the gap between data and biological insight.
+            </p>
+        </section>
 
-<footer>
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-</footer>
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">AI</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">Machine Learning</div>
+                <div class="skill-item">R/Bioinformatics</div>
+                <div class="skill-item">Data Visualization</div>
+                <div class="skill-item">Statistical Modeling</div>
+                <div class="skill-item">Multi-omics</div>
+                <div class="skill-item">Cloud Computing</div>
+            </div>
+        </section>
 
-</div>
-</body>
-</html>
+        <section id="experience">
+            <h2>Experience</h2>
+            
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Senior Research Scientist</span>
+                    <span class="job-date">2019 – Present</span>
+                </div>
+                <span class="job-company">Institute for Systems Biology, Seattle, WA</span>
+                <ul class="job-responsibilities">
+                    <li>Developed AI and machine learning methodologies for predicting cell type compositions in spatial data in the Cancer Systems Biology Consortium (NCI CSBC).</li>
+                    <li>Co-led computational biology research component focused on tissue inflammation and cancer progression with the CRUK grand challenges.</li>
+                    <li>Currently leading the web development team on the CRDC Imaging Data Commons, a 36TB+ data repository supporting cancer imaging research.</li>
+                    <li>Played a key role in the TCGA PanCancer Atlas Immune Response working group, analyzing immune-related gene signatures to identify cancer-immune subtypes.</li>
+                    <li>Curated and developed an interactive immunotherapy focused data resource and analysis web portal with the Cancer Research Institute, the CRI iAtlas.</li>
+                    <li>Developed metadata standards for novel data types as part of the Human Tumor Atlas Network (HTAN).</li>
+                    <li>Teach classes and mentor students in the summer intern program.</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section id="publications">
+            <h2>Select Publications</h2>
+            
+            <div class="publication">
+                <div class="pub-title">Robust Cluster Prediction Across Data Types Validates Association of Sex and Therapy Response in GBM</div>
+                <div class="pub-authors">Gibbs et al.</div>
+                <div class="pub-details">Cancers (2025)</div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Concerted epithelial and stromal changes during progression of Barrett's Esophagus to invasive adenocarcinoma exposed by multi-scale, multi-omics analysis</div>
+                <div class="pub-authors">Strasser, Gibbs, et al.</div>
+                <div class="pub-details">Developmental Cell (2025)</div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">The Immune Landscape of Cancer</div>
+                <div class="pub-authors">Thorsson & Gibbs et al.</div>
+                <div class="pub-details">Immunity (2019)</div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Influence Maximization in Biological Networks</div>
+                <div class="pub-authors">Gibbs & Shmulevich</div>
+                <div class="pub-details">PLoS Computational Biology (2017)</div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Multi-omic network signatures of disease</div>
+                <div class="pub-authors">Gibbs et al.</div>
+                <div class="pub-details">Frontiers in Genetics (2014)</div>
+            </div>
+
+            <p style="margin-top: 1.5rem; color: var(--secondary-text);">
+                h-index = 19 | 
+                <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank" style="color: var(--accent-color);">Full publication list on Google Scholar</a>
+            </p>
+        </section>
+
+
+        <footer>
+            <p>
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+                    <img alt="Creative Commons License" style="border-width:0; vertical-align:middle; opacity:0.7;" src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+                </a><br />
+                This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0 License</a>.
+            </p>
+        </footer>
+
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
+
+    <script>
+        // --- 3D Lorenz Attractor Script ---
+        const container = document.getElementById('canvas-container');
+        
+        // Scene Setup
+        const scene = new THREE.Scene();
+        // Add a very subtle fog for depth
+        scene.fog = new THREE.FogExp2(0x0d1117, 0.02);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Lorenz Parameters
+        let x = 0.1, y = 0, z = 0;
+        const sigma = 10;
+        const rho = 28;
+        const beta = 8/3;
+        const dt = 0.005; // Time step
+        const maxPoints = 5000; // Length of the tail
+
+        // Geometry for the line
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(maxPoints * 3);
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // Create a custom gradient color for the line
+        const colors = new Float32Array(maxPoints * 3);
+        const color = new THREE.Color();
+        
+        for (let i = 0; i < maxPoints; i++) {
+            // Gradient from blue to cyan/white
+            color.setHSL(0.5 + (i / maxPoints) * 0.2, 1.0, 0.5);
+            colors[i * 3] = color.r;
+            colors[i * 3 + 1] = color.g;
+            colors[i * 3 + 2] = color.b;
+        }
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.LineBasicMaterial({ 
+            vertexColors: true,
+            linewidth: 2 
+        });
+
+        const line = new THREE.Line(geometry, material);
+        scene.add(line);
+
+        // Adjust camera position
+        camera.position.z = 60;
+        camera.position.y = 10;
+        
+        // Arrays to store history
+        const points = [];
+
+        // Pre-fill some points so it doesn't start empty
+        for(let i=0; i<100; i++) {
+            let dx = sigma * (y - x) * dt;
+            let dy = (x * (rho - z) - y) * dt;
+            let dz = (x * y - beta * z) * dt;
+            x += dx; y += dy; z += dz;
+            points.push(new THREE.Vector3(x, y, z));
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 1. Calculate next Lorenz Point
+            let dx = sigma * (y - x) * dt;
+            let dy = (x * (rho - z) - y) * dt;
+            let dz = (x * y - beta * z) * dt;
+
+            x += dx;
+            y += dy;
+            z += dz;
+
+            points.push(new THREE.Vector3(x, y, z));
+
+            // Keep array size constant
+            if (points.length > maxPoints) {
+                points.shift();
+            }
+
+            // 2. Update Geometry
+            const positionAttribute = line.geometry.attributes.position;
+            
+            for (let i = 0; i < points.length; i++) {
+                positionAttribute.setXYZ(i, points[i].x, points[i].y, points[i].z);
+            }
+            
+            // Hide unused vertices if array is not full yet (rare after startup)
+            line.geometry.setDrawRange(0, points.length);
+            positionAttribute.needsUpdate = true;
+
+            // 3. Rotate the whole system slowly
+            line.rotation.z += 0.001;
+            line.rotation.y += 0.002;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+    
