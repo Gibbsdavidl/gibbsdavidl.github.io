@@ -3,849 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="David L. Gibbs - Computational Biologist specializing in AI/ML for digital pathology, foundation models, and precision medicine in cancer research">
-    <meta name="keywords" content="computational pathology, foundation models, Virchow2, digital pathology, AI, machine learning, cancer research, biomarker discovery, spatial transcriptomics">
-    <title>David L. Gibbs | Computational Biologist & AI/ML Scientist</title>
+    <meta name="description" content="David L. Gibbs - Computational biologist building AI/ML and statistical methods for drug discovery: target discovery, lab-in-the-loop active learning, and model training on multi-modal biological data.">
+    <meta name="keywords" content="computational biology, drug discovery, drug design, target discovery, active learning, lab-in-the-loop, machine learning, AI, statistical methods, foundation models, computational pathology, multi-omics">
+    <title>David L. Gibbs | Computational Biology & AI for Drug Discovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Palette borrowed from H&E staining: hematoxylin ink, eosin accent, paper ground */
+        :root {
+            --paper: #f5f0e6;
+            --paper-2: #ece5d6;
+            --card: #fbf8f2;
+            --ink: #1d1b2e;
+            --ink-soft: #4a4760;
+            --muted: #807b8f;
+            --rule: #d9d0bf;
+            --hema: #2e2a6b;
+            --eosin: #d6336c;
+            --eosin-soft: #f6d3de;
+            --grid: rgba(46, 42, 107, 0.07);
+            --well-empty: #e4dccb;
         }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --paper: #12111c;
+                --paper-2: #1a1928;
+                --card: #1c1b2b;
+                --ink: #eeeaf6;
+                --ink-soft: #bdb8cf;
+                --muted: #8a85a0;
+                --rule: #2f2d44;
+                --hema: #a9a3ff;
+                --eosin: #ff6b9a;
+                --eosin-soft: #3a1f2d;
+                --grid: rgba(169, 163, 255, 0.06);
+                --well-empty: #26243a;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #ffffff;
+            font-family: 'IBM Plex Sans', system-ui, sans-serif;
+            font-size: 17px;
+            line-height: 1.65;
+            color: var(--ink);
+            background-color: var(--paper);
+            background-image:
+                radial-gradient(ellipse at 85% -10%, var(--eosin-soft) 0%, transparent 45%),
+                radial-gradient(circle, var(--grid) 1.2px, transparent 1.3px);
+            background-size: 100% 900px, 22px 22px;
+            background-repeat: no-repeat, repeat;
         }
+
+        a { color: inherit; }
 
         .container {
-            max-width: 1100px;
+            max-width: 1080px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* Header/Hero Section */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 0 60px;
-            text-align: center;
+        .mono {
+            font-family: 'IBM Plex Mono', ui-monospace, monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
-            font-weight: 700;
+        h1, h2, h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-variation-settings: 'SOFT' 50;
+            line-height: 1.1;
         }
 
-        .tagline {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            font-weight: 300;
-            opacity: 0.95;
+        /* ---------- Nav ---------- */
+        nav {
+            padding: 22px 0;
         }
 
-        .subtitle {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .social-links {
+        nav .container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
-        .social-links a {
-            color: white;
+        nav .mark {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 800;
+            font-size: 1.15rem;
             text-decoration: none;
-            padding: 10px 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-size: 0.95em;
         }
 
-        .social-links a:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: white;
-            transform: translateY(-2px);
-        }
+        nav .mark span { color: var(--eosin); }
 
-        /* Main Content */
-        main {
-            padding: 60px 0;
-        }
-
-        section {
-            margin-bottom: 80px;
-        }
-
-        h2 {
-            font-size: 2.2em;
-            margin-bottom: 30px;
-            color: #2c3e50;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #34495e;
-        }
-
-        h4 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        p {
-            margin-bottom: 15px;
-            font-size: 1.05em;
-            line-height: 1.7;
-        }
-
-        /* About Section */
-        .about-content {
-            background: #f8f9fa;
-            padding: 40px;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
-
-        /* Featured Projects */
-        .project-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-        }
-
-        .project-header {
+        nav ul {
+            list-style: none;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        nav ul a {
+            text-decoration: none;
+            color: var(--ink-soft);
+        }
+
+        nav ul a:hover { color: var(--eosin); }
+
+        /* ---------- Hero ---------- */
+        header.hero {
+            padding: 56px 0 88px;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .kicker {
+            color: var(--eosin);
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5.6rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 26px;
+        }
+
+        h1 em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--hema);
+        }
+
+        .lede {
+            font-size: 1.22rem;
+            color: var(--ink-soft);
+            max-width: 34em;
+            margin-bottom: 32px;
+        }
+
+        .lede strong { color: var(--ink); font-weight: 600; }
+
+        .links {
+            display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .project-tags {
-            font-size: 0.9em;
-            color: #667eea;
-            font-weight: 500;
-        }
-
-        .project-year {
-            font-size: 0.9em;
-            color: #999;
-        }
-
-        .tech-stack {
-            margin: 15px 0;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .tech-stack strong {
-            color: #555;
-        }
-
-        .impact {
-            margin: 15px 0;
-            padding: 12px;
-            background: #e8f4f8;
-            border-left: 3px solid #667eea;
-            border-radius: 5px;
-        }
-
-        .impact strong {
-            color: #667eea;
-        }
-
-        .project-links {
-            margin-top: 15px;
-        }
-
-        .project-links a {
-            display: inline-block;
-            color: #667eea;
+        .links a {
+            font-family: 'IBM Plex Mono', ui-monospace, monospace;
+            font-size: 0.82rem;
             text-decoration: none;
-            margin-right: 15px;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            padding: 8px 14px;
+            border: 1.5px solid var(--ink);
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
-        .project-links a:hover {
-            color: #764ba2;
-            text-decoration: underline;
+        .links a:hover,
+        .links a.primary {
+            background: var(--ink);
+            color: var(--paper);
         }
 
-        /* Software Section */
+        .links a.primary:hover {
+            background: var(--eosin);
+            border-color: var(--eosin);
+        }
+
+        /* 96-well plate: a nod to lab-in-the-loop active learning */
+        .plate {
+            background: var(--card);
+            border: 1.5px solid var(--rule);
+            border-radius: 18px;
+            padding: 22px 22px 16px;
+            box-shadow: 0 30px 60px -30px rgba(29, 27, 46, 0.35);
+        }
+
+        .plate-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+        }
+
+        .well {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--well-empty);
+            opacity: 0;
+            transform: scale(0.4);
+            animation: well-in 0.5s cubic-bezier(.2,.9,.3,1.3) forwards;
+        }
+
+        .well.picked {
+            box-shadow: 0 0 0 2px var(--card), 0 0 0 3.5px var(--eosin);
+            animation: well-in 0.5s cubic-bezier(.2,.9,.3,1.3) forwards,
+                       pick 2.4s ease-in-out infinite;
+        }
+
+        @keyframes well-in {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pick {
+            0%, 100% { box-shadow: 0 0 0 2px var(--card), 0 0 0 3.5px var(--eosin); }
+            50% { box-shadow: 0 0 0 2px var(--card), 0 0 0 6px var(--eosin); }
+        }
+
+        .plate-caption {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            margin-top: 14px;
+            font-size: 0.7rem;
+        }
+
+        .plate-caption b { color: var(--eosin); font-weight: 500; }
+
+        /* ---------- Sections ---------- */
+        main section {
+            padding: 72px 0;
+            border-top: 1.5px solid var(--rule);
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+            align-items: baseline;
+        }
+
+        .section-head .mono { color: var(--muted); }
+
+        h2 {
+            font-size: clamp(2rem, 4.2vw, 2.9rem);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        h2 em {
+            font-weight: 300;
+            color: var(--eosin);
+        }
+
+        .indent { margin-left: 252px; }
+
+        p { margin-bottom: 14px; }
+
+        /* Now / focus areas */
+        .now-intro {
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            max-width: 40em;
+            margin-bottom: 36px;
+        }
+
+        .now-intro strong { color: var(--ink); }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .focus {
+            background: var(--card);
+            border: 1.5px solid var(--rule);
+            border-radius: 14px;
+            padding: 26px 24px;
+            position: relative;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .focus:hover {
+            transform: translateY(-4px);
+            border-color: var(--eosin);
+        }
+
+        .focus .num {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--eosin);
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+
+        .focus h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .focus p {
+            color: var(--ink-soft);
+            font-size: 0.97rem;
+            margin: 0;
+        }
+
+        /* About */
+        .about p {
+            font-size: 1.08rem;
+            max-width: 42em;
+        }
+
+        .about strong { font-weight: 600; }
+
+        .stats {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin-top: 34px;
+        }
+
+        .stat b {
+            display: block;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--hema);
+        }
+
+        .stat span { color: var(--muted); }
+
+        /* Selected work */
+        .work {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            padding: 26px 0;
+            border-bottom: 1px dashed var(--rule);
+        }
+
+        .work:last-child { border-bottom: none; }
+
+        .work .meta { color: var(--muted); }
+
+        .work .meta .tag {
+            display: block;
+            color: var(--hema);
+            margin-top: 6px;
+        }
+
+        .work h3 {
+            font-size: 1.45rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .work p {
+            color: var(--ink-soft);
+            max-width: 44em;
+        }
+
+        .stack {
+            font-family: 'IBM Plex Mono', ui-monospace, monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .arrow {
+            color: var(--eosin);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .arrow:hover { text-decoration: underline; }
+
+        /* Software */
         .software-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .software-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 25px;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .software-card:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-        }
-
-        .software-header {
+            background: var(--card);
+            border: 1.5px solid var(--rule);
+            border-radius: 14px;
+            padding: 24px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            flex-direction: column;
         }
 
-        .software-title {
-            font-size: 1.3em;
-            color: #2c3e50;
+        .software-card h3 {
+            font-family: 'IBM Plex Mono', ui-monospace, monospace;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .software-card .mono { color: var(--eosin); margin-bottom: 14px; }
+
+        .software-card p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .software-card .links-row { display: flex; gap: 18px; }
+
+        /* Experience */
+        .role {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            padding: 24px 0;
+        }
+
+        .role .when { color: var(--muted); }
+
+        .role.current .when { color: var(--eosin); }
+
+        .role h3 {
+            font-size: 1.4rem;
             font-weight: 600;
+            margin-bottom: 2px;
         }
 
-        .software-badge {
-            font-size: 0.85em;
-            padding: 4px 10px;
-            background: #667eea;
-            color: white;
-            border-radius: 12px;
+        .role .org { color: var(--ink-soft); margin-bottom: 12px; }
+
+        .role ul {
+            margin-left: 18px;
+            color: var(--ink-soft);
         }
 
-        /* Experience Section */
-        .experience-item {
-            margin-bottom: 40px;
-        }
+        .role li { margin-bottom: 6px; }
 
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .job-title {
-            font-size: 1.3em;
-            color: #2c3e50;
-            font-weight: 600;
-        }
-
-        .company {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .date-range {
-            color: #999;
-            font-size: 0.95em;
-        }
-
-        .experience-section-title {
-            font-weight: 600;
-            color: #667eea;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-
-        ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
+        .role li::marker { color: var(--eosin); }
 
         /* Publications */
-        .publication {
-            margin-bottom: 35px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e0e0e0;
+        .pub {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            padding: 18px 0;
+            border-bottom: 1px dashed var(--rule);
         }
 
-        .publication:last-child {
-            border-bottom: none;
+        .pub .year {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--hema);
+            line-height: 1.2;
         }
 
-        .pub-authors {
+        .pub .title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.18rem;
             font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        .pub-title {
-            font-style: italic;
-            margin-bottom: 5px;
-            font-size: 1.05em;
-        }
+        .pub .venue { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
 
-        .pub-journal {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+        .pub .venue i { color: var(--eosin); font-style: normal; font-weight: 500; }
 
-        .pub-citations {
-            display: inline-block;
-            background: #fff3cd;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            font-weight: 600;
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .pub-description {
-            color: #666;
-            font-size: 0.95em;
-            margin-top: 10px;
-        }
-
-        /* Skills Section */
+        /* Expertise */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px 32px;
         }
 
-        .skill-category {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 25px;
-        }
-
-        .skill-category h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .skill-category p {
-            font-size: 0.95em;
-            line-height: 1.8;
-            margin-bottom: 0;
-        }
-
-        /* Research Interests */
-        .interests-list {
-            background: #f8f9fa;
-            padding: 30px 40px;
-            border-radius: 8px;
-        }
-
-        .interests-list li {
-            font-size: 1.05em;
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .interests-list strong {
-            color: #667eea;
-        }
-
-        /* Connect Section */
-        .connect-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 50px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .connect-section h2 {
-            color: white;
-            border: none;
-            margin-bottom: 20px;
-        }
-
-        .connect-section p {
-            font-size: 1.1em;
-            margin-bottom: 25px;
-        }
-
-        .connect-list {
-            list-style: none;
-            margin: 25px 0;
-            font-size: 1.05em;
-        }
-
-        .connect-list li {
-            margin-bottom: 12px;
-        }
-
-        .connect-list strong {
-            display: inline-block;
-            width: 100px;
-            text-align: right;
-            margin-right: 15px;
-        }
-
-        .connect-list a {
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            transition: border-color 0.3s ease;
-        }
-
-        .connect-list a:hover {
-            border-bottom-color: white;
-        }
-
-        /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
-        }
-
-        footer p {
+        .skill h4 {
+            font-family: 'IBM Plex Mono', ui-monospace, monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--eosin);
+            padding-bottom: 8px;
             margin-bottom: 10px;
+            border-bottom: 1.5px solid var(--ink);
         }
 
-        footer a {
-            color: #667eea;
+        .skill p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Connect */
+        .connect {
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 22px;
+            padding: 56px;
+            margin: 24px 0 72px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.2px, transparent 1.3px);
+            background-size: 22px 22px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .connect { background-color: var(--card); color: var(--ink); border: 1.5px solid var(--rule); }
+        }
+
+        .connect h2 { color: inherit; }
+
+        .connect p { opacity: 0.8; margin-top: 14px; }
+
+        .connect dl {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 20px;
+        }
+
+        .connect dt { opacity: 0.6; }
+
+        .connect dd a {
             text-decoration: none;
+            border-bottom: 1.5px solid var(--eosin);
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        footer {
+            padding: 28px 0 40px;
+            color: var(--muted);
+            font-size: 0.85rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.8em;
-            }
-
-            .tagline {
-                font-size: 1.1em;
-            }
-
-            .project-header {
-                flex-direction: column;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .software-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-content,
-            .connect-section {
-                padding: 25px;
-            }
-
-            .connect-list strong {
-                display: block;
-                width: auto;
-                text-align: left;
-                margin-right: 0;
-                margin-bottom: 5px;
-            }
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        /* Utility Classes */
-        .highlight {
-            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
+        footer a { color: var(--ink-soft); }
+
+        /* ---------- Page-load reveal ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise 0.8s cubic-bezier(.2,.7,.2,1) forwards;
+        }
+
+        .d1 { animation-delay: 0.05s; }
+        .d2 { animation-delay: 0.18s; }
+        .d3 { animation-delay: 0.32s; }
+        .d4 { animation-delay: 0.46s; }
+        .d5 { animation-delay: 0.6s; }
+
+        @keyframes rise {
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .well { animation: none !important; opacity: 1; transform: none; }
+            .well.picked { animation: none !important; }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 900px) {
+            .hero .container { grid-template-columns: 1fr; gap: 40px; }
+            .focus-grid, .software-grid, .skills-grid { grid-template-columns: 1fr 1fr; }
+            .section-head, .work, .role, .pub { grid-template-columns: 1fr; gap: 6px; }
+            .indent { margin-left: 0; }
+            .connect { grid-template-columns: 1fr; padding: 36px; }
+        }
+
+        @media (max-width: 600px) {
+            body { font-size: 16px; }
+            .container { padding: 0 16px; }
+            nav ul { display: none; }
+            header.hero { padding: 24px 0 56px; }
+            main section { padding: 52px 0; }
+            .focus-grid, .software-grid, .skills-grid { grid-template-columns: 1fr; }
+            .plate { padding: 14px 14px 10px; }
+            .plate-grid { gap: 4px; }
+            .connect { padding: 28px 22px; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    <nav>
         <div class="container">
-            <h1>David L. Gibbs</h1>
-            <p class="tagline">Computational Biologist | AI/ML for Pathology & Precision Medicine</p>
-            <p class="subtitle">Developing AI models and spatial analysis methods for cancer biomarker discovery</p>
-            <div class="social-links">
-                <a href="mailto:gibbsdavidl@gmail.com">Email</a>
-                <a href="https://github.com/gibbsdavidl" target="_blank">GitHub</a>
-                <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank">Google Scholar</a>
-                <a href="https://www.linkedin.com/in/david-l-gibbs-666a3839/" target="_blank">LinkedIn</a>
-                <a href="Gibbs Resume 2026.pdf" target="_blank">CV/Resume</a>
-                <a href="https://thorsson-shmulevich.isbscience.org/" target="_blank">Lab</a>
+            <a class="mark" href="#">DLG<span>.</span></a>
+            <ul class="mono">
+                <li><a href="#now">Now</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#connect">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div>
+                <p class="kicker mono reveal d1">Computational Biology &middot; AI/ML for Drug Discovery</p>
+                <h1 class="reveal d2">David L.<br><em>Gibbs</em></h1>
+                <p class="lede reveal d3">I develop <strong>statistical methods</strong> and train <strong>AI models</strong> that turn biological data into better drug-discovery decisions &mdash; from <strong>finding targets</strong> to <strong>closing the loop with the lab</strong>.</p>
+                <div class="links reveal d4">
+                    <a class="primary" href="Gibbs Resume 2026.pdf" target="_blank">CV / Resume</a>
+                    <a href="https://github.com/gibbsdavidl" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank">Scholar</a>
+                    <a href="https://www.linkedin.com/in/david-l-gibbs-666a3839/" target="_blank">LinkedIn</a>
+                    <a href="mailto:gibbsdavidl@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="plate reveal d3" aria-hidden="true">
+                <div class="plate-grid" id="plate"></div>
+                <div class="plate-caption mono">
+                    <span>plate 04 &middot; 96 wells</span>
+                    <span><b>&#9675;</b> next batch: acquisition&nbsp;fn</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
-        <div class="container">
-            <!-- About Section -->
-            <section id="about">
-                <h2>About</h2>
-                <div class="about-content">
-                    <p>I'm a computational biologist specializing in <strong>AI/ML for digital pathology</strong>, <strong>spatial transcriptomics</strong>, and <strong>multi-modal data integration</strong> in cancer research.</p>
-                    
-                    <p>Currently, I'm developing <strong>multi-headed classifiers on the Virchow2 foundation model</strong> to simultaneously predict tumor subtypes, stromal architecture, and immune cell populations from histopathology—enabling patient stratification and biomarker discovery for precision medicine.</p>
-                    
-                    <p>My work at the Institute for Systems Biology integrates cutting-edge deep learning with traditional bioinformatics to understand tumor-immune interactions across multiple data modalities. I've contributed to major cancer consortiums (<strong>NCI CSBC</strong>, <strong>CRUK Grand Challenges</strong>, <strong>TCGA PanCancer Atlas</strong>) and published almost(!) 40 papers including co-first author on "The Immune Landscape of Cancer" (Immunity, 2019 - <strong>4700+ citations</strong>).</p>
-                    
-                    <p>I build scientific software, mentor students, and excel at translating complex biological questions into computational solutions through collaboration with pathologists, clinicians, and experimental biologists.</p>
+        <!-- Now -->
+        <section id="now">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">01 &mdash; Now</span>
+                    <h2>Building models for <em>drug discovery</em> at Powerhouse</h2>
                 </div>
-            </section>
-
-            <!-- Featured Projects Section -->
-            <section id="featured-projects">
-                <h2>Featured Projects</h2>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Pathology Foundation Models for Tumor Microenvironment Analysis</h3>
-                        <span class="project-year">2024-Present</span>
-                    </div>
-                    <p class="project-tags">AI/ML | Digital Pathology | Foundation Models</p>
-                    
-                    <p>Multi-headed deep learning architecture for simultaneous prediction of cancer subtypes, stromal structures, T cell populations, and macrophage types from H&E whole slide images. Fine-tuning a vision transformer for comprehensive tumor microenvironment characterization.</p>
-                    
-                    <div class="tech-stack">
-                        <strong>Technologies:</strong> PyTorch, Virchow2, Multi-task learning, Whole slide imaging, Vision Transformers
-                    </div>
-                    
-                    <div class="impact">
-                        <strong>Impact:</strong> Enabling spatial biomarker discovery for patient stratification in immuno-oncology; part of NCI Cancer Systems Biology Consortium
-                    </div>
-                    
+                <div class="indent">
+                    <p class="now-intro">I'm an <strong>Applied AI/ML Scientist</strong> at <strong>Powerhouse</strong>, working on AI/ML for drug design. I bring more than ten years of building models on messy, multi-modal biological data: genomics, single-cell, spatial, and whole-slide pathology.</p>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>CycleGAN for Histopathology Stain Transformation</h3>
-                        <span class="project-year">2025</span>
+                <div class="focus-grid">
+                    <div class="focus">
+                        <div class="num">i.</div>
+                        <h3>Target discovery</h3>
+                        <p>Mining multi-omics, spatial, and imaging data to nominate and prioritize targets and the biomarkers that go with them, so you know <em>which</em> patients and <em>why</em>.</p>
                     </div>
-                    <p class="project-tags">Computer Vision | Deep Learning</p>
-                    
-                    <p>Custom unpaired image-to-image translation model for IHC-to-H&E conversion, enabling cross-stain analysis. Solved training-inference mismatches in whole slide image processing while preserving nuclear structure across diverse tissue types and staining protocols.</p>
-                    
-                    <div class="tech-stack">
-                        <strong>Technologies:</strong> PyTorch, CycleGAN, MONAI, Whole slide image processing, Domain adaptation
+                    <div class="focus">
+                        <div class="num">ii.</div>
+                        <h3>Lab-in-the-loop</h3>
+                        <p>Active learning that couples models to wet-lab experiments. The model chooses the most informative next batch, the assays come back, and the model gets retrained.</p>
                     </div>
-                    
-                    <div class="impact">
-                        <strong>Impact:</strong> Automated stain normalization for large-scale pathology analysis, enabling cross-study comparisons
+                    <div class="focus">
+                        <div class="num">iii.</div>
+                        <h3>Methods &amp; model training</h3>
+                        <p>New statistical methods plus training and fine-tuning AI models, including foundation models, with the uncertainty estimates and validation that real decisions require.</p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Spatial Tumor Microenvironment Analysis Pipeline</h3>
-                        <span class="project-year">2024-Present</span>
+        <!-- About -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">02 &mdash; Background</span>
+                    <h2>From the immune landscape to the <em>lab bench</em></h2>
+                </div>
+                <div class="indent">
+                    <p>Before Powerhouse, I spent nearly a decade at the <strong>Institute for Systems Biology</strong> in Seattle. I built pathology foundation-model classifiers, spatial statistics for the tumor microenvironment, and multi-omic integration methods for cancer consortia including <strong>NCI CSBC</strong>, <strong>CRUK Grand Challenge</strong>, <strong>HTAN</strong>, and the <strong>TCGA PanCancer Atlas</strong>.</p>
+                    <p>I was co-first author on <em>The Immune Landscape of Cancer</em> (Immunity, 2019) and co-PI on the NCI <strong>Imaging Data Commons</strong>. I like being the person who translates a biological question into a model and then a model into an experiment, working side by side with biologists, chemists, pathologists, and clinicians.</p>
+                    <div class="stats">
+                        <div class="stat"><b>39</b><span class="mono">papers</span></div>
+                        <div class="stat"><b>10k+</b><span class="mono">citations</span></div>
+                        <div class="stat"><b>19</b><span class="mono">h-index</span></div>
+                        <div class="stat"><b>36TB+</b><span class="mono">imaging data served</span></div>
                     </div>
-                    <p class="project-tags">Spatial Biology | Statistical Methods</p>
-                    
-                    <p>Multi-scale statistical framework for quantifying immune cell infiltration patterns using Moran's I spatial autocorrelation with pyramid approaches for different tissue scales. Integrates with WSInfer for cell detection and spatial relationship mapping.</p>
-                    
-                    <div class="tech-stack">
-                        <strong>Technologies:</strong> Python, scikit-image, Spatial statistics, Digital pathology, Multi-scale analysis
-                    </div>
-                    
-                    <div class="impact">
-                        <strong>Impact:</strong> Revealing tumor-immune spatial architectures predictive of therapy response across cancer types
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected work -->
+        <section id="work">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">03 &mdash; Selected work</span>
+                    <h2>Projects</h2>
+                </div>
+
+                <div class="work">
+                    <div class="meta mono">2024 &ndash; 2026<span class="tag">Foundation models</span></div>
+                    <div>
+                        <h3>Multi-headed classifiers on pathology foundation models</h3>
+                        <p>Fine-tuned a multi-task head on the Virchow2 vision transformer to simultaneously predict tumor subtype, stromal architecture, T cell, and macrophage populations from H&amp;E whole-slide images, for spatial biomarker discovery in the NCI Cancer Systems Biology Consortium.</p>
+                        <p class="stack">PyTorch &middot; Virchow2 &middot; ViTs &middot; multi-task learning &middot; WSI</p>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>CRDC Imaging Data Commons</h3>
-                        <span class="project-year">2022-Present</span>
-                    </div>
-                    <p class="project-tags">Infrastructure | Data Repository</p>
-                    
-                    <p>Leading the team responsible for technical development for a 36TB+ cancer imaging data repository supporting pathology and radiology research. Architected scalable infrastructure with cloud-based storage and analysis tools serving cancer researchers worldwide.</p>
-                    
-                    <div class="tech-stack">
-                        <strong>Technologies:</strong> Google Cloud Platform, BigQuery, Python, Data standards (DICOM, OME-TIFF)
-                    </div>
-                    
-                    <div class="impact">
-                        <strong>Impact:</strong> Democratizing access to cancer imaging data and enabling large-scale computational pathology research
-                    </div>
-                    
-                    <div class="project-links">
-                        <a href="https://imaging.datacommons.cancer.gov/" target="_blank">Visit Site →</a>
+                <div class="work">
+                    <div class="meta mono">2025<span class="tag">Generative / CV</span></div>
+                    <div>
+                        <h3>CycleGAN stain transformation</h3>
+                        <p>Unpaired IHC&rarr;H&amp;E translation for whole-slide images. We fixed train/inference mismatches while preserving nuclear morphology across tissue types and staining protocols.</p>
+                        <p class="stack">PyTorch &middot; CycleGAN &middot; MONAI &middot; domain adaptation</p>
                     </div>
                 </div>
-            </section>
 
-            <!-- Selected Software Section -->
-            <section id="software">
-                <h2>Selected Software</h2>
-                
+                <div class="work">
+                    <div class="meta mono">2024 &ndash; 2026<span class="tag">Spatial statistics</span></div>
+                    <div>
+                        <h3>Multi-scale spatial analysis of the tumor microenvironment</h3>
+                        <p>Pyramid-based Moran's I and spatial autocorrelation framework that quantifies immune infiltration patterns across tissue scales and links tumor-immune architecture to therapy response.</p>
+                        <p class="stack">Python &middot; scikit-image &middot; spatial statistics &middot; WSInfer</p>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <div class="meta mono">2022 &ndash; 2026<span class="tag">Infrastructure</span></div>
+                    <div>
+                        <h3>NCI Imaging Data Commons</h3>
+                        <p>Co-PI and technical lead for a 36TB+ cloud-native repository of pathology and radiology data used by cancer researchers worldwide.</p>
+                        <p class="stack">GCP &middot; BigQuery &middot; DICOM &middot; OME-TIFF</p>
+                        <a class="arrow" href="https://imaging.datacommons.cancer.gov/" target="_blank">Visit site &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Software -->
+        <section id="software">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">04 &mdash; Software</span>
+                    <h2>Open-source tools</h2>
+                </div>
                 <div class="software-grid">
                     <div class="software-card">
-                        <div class="software-header">
-                            <span class="software-title">gssnng</span>
-                        </div>
-                        <p style="color: #667eea; font-size: 0.9em; margin-bottom: 15px;">Bioinformatics / Python</p>
-                        
-                        <p>Gene Set Scoring on the Nearest Neighbor Graph for single-cell RNA-seq analysis. Part of the scverse ecosystem (scanpy), this tool performs data smoothing using nearest neighbor graphs to create mini-pseudobulk expression profiles for robust gene set scoring in single-cell data.</p>
-                        
-                        <div class="project-links" style="margin-top: 20px;">
-                            <a href="https://gssnng.readthedocs.io/en/latest/" target="_blank">Documentation →</a>
-                            <a href="https://github.com/IlyaLab/gssnng" target="_blank">GitHub →</a>
+                        <h3>gssnng</h3>
+                        <p class="mono">Python &middot; single-cell</p>
+                        <p>Gene set scoring on the nearest-neighbor graph. It smooths single-cell data into mini-pseudobulk profiles for robust scoring, and it's part of the scverse / scanpy ecosystem.</p>
+                        <div class="links-row">
+                            <a class="arrow" href="https://gssnng.readthedocs.io/en/latest/" target="_blank">Docs &rarr;</a>
+                            <a class="arrow" href="https://github.com/IlyaLab/gssnng" target="_blank">GitHub &rarr;</a>
                         </div>
                     </div>
-
                     <div class="software-card">
-                        <div class="software-header">
-                            <span class="software-title">tbccsi</span>
-                        </div>
-                        <p style="color: #667eea; font-size: 0.9em; margin-bottom: 15px;">AI / Computational Pathology</p>
-                        
-                        <p>AI-powered prediction models for cell type classification in pathology H&E images. Leverages vision transformers to identify cellular patterns associated with clinical outcomes in cancer tissue samples.</p>
-                        
-                        <div class="project-links" style="margin-top: 20px;">
-                            <a href="https://github.com/IlyaLab/tbccsi" target="_blank">GitHub →</a>
+                        <h3>tbccsi</h3>
+                        <p class="mono">Python &middot; pathology AI</p>
+                        <p>Vision-transformer models for cell type classification in H&amp;E images, used to find cellular patterns associated with clinical outcomes.</p>
+                        <div class="links-row">
+                            <a class="arrow" href="https://github.com/IlyaLab/tbccsi" target="_blank">GitHub &rarr;</a>
                         </div>
                     </div>
-
                     <div class="software-card">
-                        <div class="software-header">
-                            <span class="software-title">CatterPlots</span>
-                            <span class="software-badge">240+ stars</span>
-                        </div>
-                        <p style="color: #667eea; font-size: 0.9em; margin-bottom: 15px;">Fun / R</p>
-                        
-                        <p>Did you ever wish you could make scatter plots with cat shaped points? Now you can! An R package for creating whimsical data visualizations using cat-shaped plotting symbols, complete with rainbow cats and customizable feline scatter plots. Features over 11 types of cats for your plotting pleasure.</p>
-                        
-                        <div class="project-links" style="margin-top: 20px;">
-                            <a href="https://github.com/Gibbsdavidl/CatterPlots" target="_blank">GitHub →</a>
+                        <h3>CatterPlots</h3>
+                        <p class="mono">R &middot; 240+ stars &middot; for fun</p>
+                        <p>Ever wished your scatter plots had cat-shaped points? Now they can. Pick from 11+ cats, rainbow cats included.</p>
+                        <div class="links-row">
+                            <a class="arrow" href="https://github.com/Gibbsdavidl/CatterPlots" target="_blank">GitHub &rarr;</a>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Experience Section -->
-            <section id="experience">
-                <h2>Experience</h2>
+        <!-- Experience -->
+        <section id="experience">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">05 &mdash; Experience</span>
+                    <h2>Where I've worked</h2>
+                </div>
 
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="job-title">Senior Research Scientist</h3>
-                            <p class="company">Institute for Systems Biology, Seattle, WA</p>
-                        </div>
-                        <span class="date-range">2019 – Present</span>
+                <div class="role current">
+                    <div class="when mono">Current</div>
+                    <div>
+                        <h3>Applied AI/ML Scientist</h3>
+                        <p class="org">Powerhouse</p>
+                        <ul>
+                            <li>AI/ML and statistical methods for drug discovery</li>
+                            <li>Target discovery from multi-modal biological data</li>
+                            <li>Lab-in-the-loop active learning and model training</li>
+                        </ul>
                     </div>
-
-                    <div class="experience-section-title">AI/ML & Computational Pathology</div>
-                    <ul>
-                        <li>Leading development of multi-headed classifier on Virchow2 foundation model for tumor microenvironment analysis (cancer subtypes, stromal structures, immune cells) - NCI Cancer Systems Biology Consortium</li>
-                        <li>Developed CycleGAN-based stain transformation models for whole slide images using PyTorch and MONAI framework, achieving high-fidelity nuclear structure preservation</li>
-                        <li>Built spatial analysis pipelines using Moran's I and multi-scale autocorrelation methods to quantify immune infiltration patterns in tissue architecture</li>
-                        <li>Lead team responsible for technical development of CRDC Imaging Data Commons (36TB+ pathology/radiology repository supporting researchers)</li>
-                    </ul>
-
-                    <div class="experience-section-title">Bioinformatics & Multi-omics Integration</div>
-                    <ul>
-                        <li>Co-led computational biology for CRUK Grand Challenge studying tissue inflammation in cancer progression, partnering with pathologists and clinicians</li>
-                        <li>Led TCGA PanCancer Atlas Immune Response working group, developing immune signatures across 11,000+ patients and 33 cancer types</li>
-                        <li>Software developer on CRI iAtlas, interactive platform integrating imaging, genomic, and clinical data for immunotherapy biomarker research</li>
-                        <li>Established metadata standards for spatial and imaging data types in Human Tumor Atlas Network (HTAN)</li>
-                    </ul>
-
-                    <div class="experience-section-title">Software Development & Mentorship</div>
-                    <ul>
-                        <li>Created gssnng for spatial transcriptomics and tbccsi for AI-powered pathology analysis</li>
-                        <li>Teach research courses in the summer intern program</li>
-                        <li>Mentor graduate students and postdocs on AI/ML and bioinformatics projects</li>
-                    </ul>
                 </div>
 
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="job-title">Postdoctoral Fellow</h3>
-                            <p class="company">Institute for Systems Biology, Seattle, WA</p>
-                        </div>
-                        <span class="date-range">2016 – 2019</span>
+                <div class="role">
+                    <div class="when mono">2019 &ndash; 2026</div>
+                    <div>
+                        <h3>Senior Research Scientist</h3>
+                        <p class="org">Institute for Systems Biology, Seattle</p>
+                        <ul>
+                            <li>Led a Virchow2-based multi-headed classifier for tumor microenvironment analysis (NCI CSBC)</li>
+                            <li>Co-PI and technical lead, CRDC Imaging Data Commons</li>
+                            <li>Co-led computational biology for the CRUK Grand Challenge on tissue inflammation (7 institutions)</li>
+                            <li>TCGA PanCancer Atlas Immune Response working group: immune subtypes across 11,000+ tumors</li>
+                            <li>R developer on CRI iAtlas; metadata standards for spatial and imaging data in HTAN</li>
+                            <li>Mentored students and postdocs; taught in the summer intern program; 2023 ISB Innovator Award</li>
+                        </ul>
                     </div>
-                    <p>Developed network analysis methods and multi-omic integration approaches for cancer systems biology. Contributed to TCGA PanCancer Atlas publications and established computational frameworks for immune landscape characterization.</p>
-                </div>
-            </section>
-
-            <!-- Publications Section -->
-            <section id="publications">
-                <h2>Select Publications</h2>
-                <p style="font-size: 1.1em; margin-bottom: 30px;"><strong>h-index: 19 | 10000+ total citations</strong></p>
-
-                <div class="publication">
-                    <p class="pub-authors"><strong>Thorsson, Gibbs et al.</strong> (2019)</p>
-                    <p class="pub-title">The Immune Landscape of Cancer</p>
-                    <p class="pub-journal">Immunity</p>
-                    <span class="pub-citations">4700+ citations</span>
-                    <p class="pub-description">Seminal work characterizing immune subtypes across 10,000+ tumors; established field standards for immune-oncology analysis and continues to be highly influential in cancer immunotherapy research.</p>
                 </div>
 
-                <div class="publication">
-                    <p class="pub-authors"><strong>Strasser, Gibbs, et al.</strong> (2025)</p>
-                    <p class="pub-title">Concerted epithelial and stromal changes during progression of Barrett's Esophagus to invasive adenocarcinoma exposed by multi-scale, multi-omics analysis</p>
-                    <p class="pub-journal">Developmental Cell</p>
-                    <p class="pub-description">Integrated spatial transcriptomics with histopathology imaging to map disease progression at cellular resolution, revealing coordinated changes across tissue compartments.</p>
+                <div class="role">
+                    <div class="when mono">2016 &ndash; 2019</div>
+                    <div>
+                        <h3>Postdoctoral Fellow</h3>
+                        <p class="org">Institute for Systems Biology, Seattle</p>
+                        <ul>
+                            <li>Network analysis and multi-omic integration methods for cancer systems biology</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="publication">
-                    <p class="pub-authors"><strong>Gibbs et al.</strong> (2025)</p>
-                    <p class="pub-title">Robust Cluster Prediction Across Data Types Validates Association of Sex and Therapy Response in GBM</p>
-                    <p class="pub-journal">Cancers</p>
-                    <p class="pub-description">Developed multi-modal machine learning models integrating imaging and molecular data for therapy response prediction in glioblastoma.</p>
+                <div class="role">
+                    <div class="when mono">2009 &ndash; 2015</div>
+                    <div>
+                        <h3>Ph.D., Bioinformatics &amp; Computational Biology</h3>
+                        <p class="org">Oregon Health &amp; Science University &middot; Advisor: Shannon McWeeney &middot; NLM Predoctoral Fellow</p>
+                    </div>
                 </div>
 
-                <div class="publication">
-                    <p class="pub-authors"><strong>Gibbs, Shmulevich</strong> (2017)</p>
-                    <p class="pub-title">Influence Maximization in Biological Networks</p>
-                    <p class="pub-journal">PLoS Computational Biology</p>
-                    <p class="pub-description">Novel network analysis methods for identifying key regulatory nodes in biological systems using graph-theoretic approaches.</p>
+                <div class="role">
+                    <div class="when mono">1999</div>
+                    <div>
+                        <h3>B.S., Chemistry</h3>
+                        <p class="org">Reed College</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications -->
+        <section id="publications">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">06 &mdash; Publications</span>
+                    <h2>Selected papers</h2>
                 </div>
 
-                <div class="publication">
-                    <p class="pub-authors"><strong>Gibbs et al.</strong> (2014)</p>
-                    <p class="pub-title">Multi-omic network signatures of disease</p>
-                    <p class="pub-journal">Frontiers in Genetics</p>
-                    <p class="pub-description">Early work on integrating multiple omics data types to understand disease mechanisms through network modeling.</p>
+                <div class="pub">
+                    <div class="year">2025</div>
+                    <div>
+                        <p class="title">Concerted epithelial and stromal changes during progression of Barrett's Esophagus to invasive adenocarcinoma exposed by multi-scale, multi-omics analysis</p>
+                        <p class="venue">Strasser, Gibbs, et al. &middot; <i>Developmental Cell</i></p>
+                    </div>
                 </div>
+                <div class="pub">
+                    <div class="year">2025</div>
+                    <div>
+                        <p class="title">Robust Cluster Prediction Across Data Types Validates Association of Sex and Therapy Response in GBM</p>
+                        <p class="venue">Gibbs et al. &middot; <i>Cancers</i></p>
+                    </div>
+                </div>
+                <div class="pub">
+                    <div class="year">2019</div>
+                    <div>
+                        <p class="title">The Immune Landscape of Cancer</p>
+                        <p class="venue">Thorsson, Gibbs, et al. &middot; <i>Immunity</i> &middot; 6000+ citations</p>
+                    </div>
+                </div>
+                <div class="pub">
+                    <div class="year">2017</div>
+                    <div>
+                        <p class="title">Influence Maximization in Biological Networks</p>
+                        <p class="venue">Gibbs &amp; Shmulevich &middot; <i>PLoS Computational Biology</i></p>
+                    </div>
+                </div>
+                <div class="pub">
+                    <div class="year">2014</div>
+                    <div>
+                        <p class="title">Multi-omic network signatures of disease</p>
+                        <p class="venue">Gibbs et al. &middot; <i>Frontiers in Genetics</i></p>
+                    </div>
+                </div>
+                <p style="margin-top: 28px;"><a class="arrow" href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank">Full list on Google Scholar &rarr;</a></p>
+            </div>
+        </section>
 
-                <p style="margin-top: 30px; font-size: 1.05em;">
-                    <a href="https://scholar.google.com/citations?user=lMvBJ3IAAAAJ&hl=en&authuser=1" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">Full publication list on Google Scholar →</a>
-                </p>
-            </section>
-
-            <!-- Technical Expertise Section -->
-            <section id="skills">
-                <h2>Technical Expertise</h2>
-                
+        <!-- Expertise -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono">07 &mdash; Toolkit</span>
+                    <h2>Technical expertise</h2>
+                </div>
                 <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>AI/ML & Computer Vision</h4>
-                        <p>PyTorch, TensorFlow, MONAI, Foundation Models (Virchow2), CNNs, Vision Transformers, CycleGAN, Multi-task learning, Transfer learning, Domain adaptation</p>
+                    <div class="skill">
+                        <h4>AI / ML</h4>
+                        <p>PyTorch, foundation-model fine-tuning, vision transformers, multi-task &amp; transfer learning, generative models (CycleGAN), domain adaptation, MONAI</p>
                     </div>
-
-                    <div class="skill-category">
-                        <h4>Computational Pathology</h4>
-                        <p>Whole slide image processing, Digital pathology analysis, Spatial autocorrelation, Tissue segmentation, Cell detection and classification, Multi-scale analysis</p>
+                    <div class="skill">
+                        <h4>Drug discovery</h4>
+                        <p>Target discovery &amp; prioritization, active learning / experimental design, biomarker discovery, patient stratification</p>
                     </div>
-
-                    <div class="skill-category">
-                        <h4>Bioinformatics & Spatial Biology</h4>
-                        <p>Single-cell RNA-seq (Scanpy, Seurat), Spatial transcriptomics, Multi-omics integration, Gene set analysis, Network analysis, Cell type deconvolution</p>
+                    <div class="skill">
+                        <h4>Statistics</h4>
+                        <p>Statistical methods development, spatial statistics, uncertainty quantification, clustering &amp; cross-data-type prediction, network inference</p>
                     </div>
-
-                    <div class="skill-category">
-                        <h4>Programming & Infrastructure</h4>
-                        <p>Python (expert), R/Bioconductor, SQL, C++, Docker, Git, Cloud computing (GCP), BigQuery, High-performance computing, AWS</p>
+                    <div class="skill">
+                        <h4>Biological data</h4>
+                        <p>Multi-omics integration, single-cell (Scanpy, Seurat), spatial transcriptomics, whole-slide pathology, gene set analysis</p>
                     </div>
-
-                    <div class="skill-category">
-                        <h4>Statistics & Visualization</h4>
-                        <p>Statistical modeling, Spatial statistics, Data visualization, Scikit-learn, Scikit-image, ggplot2, matplotlib, Dimensionality reduction</p>
+                    <div class="skill">
+                        <h4>Engineering</h4>
+                        <p>Python (expert), R / Bioconductor, SQL, C++, Docker, Git, GCP, BigQuery, AWS, HPC</p>
                     </div>
-
-                    <div class="skill-category">
-                        <h4>Translational Research</h4>
-                        <p>Biomarker discovery, Patient stratification, Clinical data integration, Cross-functional collaboration, Scientific communication</p>
+                    <div class="skill">
+                        <h4>Collaboration</h4>
+                        <p>Cross-functional teams of biologists, chemists, pathologists &amp; clinicians; technical team leadership; mentoring</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Research Interests Section -->
-            <section id="research-interests">
-                <h2>Research Interests</h2>
-                <div class="interests-list">
-                    <p style="margin-bottom: 25px;">I'm passionate about developing computational methods that translate complex biological data into actionable insights for precision medicine:</p>
-                    <ul>
-                        <li><strong>Foundation models for pathology:</strong> Adapting large vision models for biomarker discovery and patient stratification</li>
-                        <li><strong>Spatial biology:</strong> Understanding tumor-immune interactions through spatial transcriptomics and digital pathology</li>
-                        <li><strong>Multi-modal integration:</strong> Combining imaging, genomics, and clinical data to predict therapy response</li>
-                        <li><strong>Translational AI:</strong> Building AI tools that work in real clinical and research workflows</li>
-                        <li><strong>Open science:</strong> Creating reproducible, well-documented software that accelerates discovery across the research community</li>
-                    </ul>
+        <!-- Connect -->
+        <div class="container" id="connect">
+            <div class="connect">
+                <div>
+                    <p class="mono" style="opacity: 0.6; margin: 0 0 10px;">08 &mdash; Contact</p>
+                    <h2>Let's talk models, targets, &amp; experiments.</h2>
+                    <p>Based in Seattle, WA.</p>
                 </div>
-            </section>
-
-            <!-- Education Section -->
-            <section id="education">
-                <h2>Education</h2>
-                
-                <div class="experience-item">
-                    <h3 style="color: #2c3e50;">Ph.D. in Bioinformatics & Computational Biology</h3>
-                    <p class="company">Oregon Health and Science University</p>
-                    <p class="date-range">2009 – 2015</p>
-                    <p>Advisor: Dr. Shannon McWeeney</p>
-                    <p style="margin-top: 10px;">National Library of Medicine Predoctoral Fellowship (ARRA Grant)</p>
-                </div>
-
-                <div class="experience-item">
-                    <h3 style="color: #2c3e50;">Bachelor of Science, Chemistry</h3>
-                    <p class="company">Reed College</p>
-                    <p class="date-range">1999</p>
-                </div>
-            </section>
-
-            <!-- Connect Section -->
-            <section id="connect">
-                <div class="connect-section">
-                    <h2>Let's Connect</h2>
-                    <ul class="connect-list">
-                        <li><strong>Email:</strong> <a href="mailto:gibbsdavidl@gmail.com">gibbsdavidl@gmail.com</a></li>
-                        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/david-l-gibbs-666a3839/" target="_blank">david-l-gibbs</a></li>
-                        <li><strong>Location:</strong> Seattle, WA (Open to remote opportunities)</li>
-                    </ul>
-                </div>
-            </section>
+                <dl class="mono">
+                    <dt>Email</dt><dd><a href="mailto:gibbsdavidl@gmail.com">gibbsdavidl@gmail.com</a></dd>
+                    <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/david-l-gibbs-666a3839/" target="_blank">david-l-gibbs</a></dd>
+                    <dt>GitHub</dt><dd><a href="https://github.com/gibbsdavidl" target="_blank">gibbsdavidl</a></dd>
+                </dl>
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 David L. Gibbs. All rights reserved.</p>
-            <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a></p>
+            <span>&copy; 2026 David L. Gibbs</span>
+            <span>Licensed <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></span>
         </div>
     </footer>
+
+    <script>
+        // Draw the 96-well plate: wells fade in column by column, a few "picked" by the model pulse.
+        (function () {
+            var plate = document.getElementById('plate');
+            if (!plate) return;
+            var seed = 7;
+            function rand() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+            var colors = ['var(--hema)', 'var(--eosin)'];
+            var frag = document.createDocumentFragment();
+            for (var r = 0; r < 8; r++) {
+                for (var c = 0; c < 12; c++) {
+                    var w = document.createElement('div');
+                    w.className = 'well';
+                    var v = rand();
+                    if (v > 0.45) {
+                        // assay readout: hematoxylin for most hits, eosin for strong ones
+                        w.style.background = 'color-mix(in srgb, ' + colors[v > 0.8 ? 1 : 0] + ' ' + Math.round(30 + 70 * rand()) + '%, var(--well-empty))';
+                    }
+                    if (v > 0.2 && v < 0.29) w.classList.add('picked');
+                    w.style.animationDelay = (0.4 + c * 0.06 + r * 0.02).toFixed(2) + 's';
+                    frag.appendChild(w);
+                }
+            }
+            plate.appendChild(frag);
+        })();
+    </script>
 </body>
 </html>
